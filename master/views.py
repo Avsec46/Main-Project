@@ -82,8 +82,8 @@ def crud_list(request, slug):
 @login_required(login_url="login/")
 def filter_crud_list(request, slug):
 
-    # if(check_permission(request.user,('view',slug)) is False):
-    #     return render(request,"adminlte/pages/error/403page.html")
+    if(check_permission(request.user,('view',slug)) is False):
+        return render(request,"adminlte/pages/error/403page.html")
     modelForm = ''
     columns = ''
     labels = ''
