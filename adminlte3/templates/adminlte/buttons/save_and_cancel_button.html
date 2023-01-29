@@ -1,0 +1,100 @@
+<div class="row mt-5">
+<button type="button" class="btn btn-sm btn-success mr-2" id="form_submit_button" onclick="save_data()"><span class="fa fa-save"></span>  Save</button>
+<button type="button" class="btn btn-sm btn-danger ml-2" onclick="$.fancybox.close()"><span class="fa fa-ban"></span>  Cancel</button>
+</div>
+
+{% block extra_js %}
+<script>
+
+    $(document).keydown(function(e) {
+        if ((e.which === 115 || e.which === 83 ) && (e.ctrlKey || e.metaKey)){
+            e.preventDefault();
+            $("#form_submit_button").trigger('click');
+            return false;
+        }
+
+    return true;
+    });
+
+ 
+    function save_data(e){
+        window.myform =$(event.target).closest('form');
+        //data = myform.serializeArray();
+        window.action = $(myform).attr('action');
+        data = new FormData(myform[0]);
+        upload_files=''
+        if($("[name='file_upload']").val()){
+            upload_files = $("[name='file_upload']")[0].files;
+        }
+
+        if(upload_files !=''){
+            //data.push({name:'file_upload',value:upload_files[0]})
+            data.append('file_upload',upload_files[0],upload_files[0].name)
+        }
+        //data.push({name:'file_upload', value:upload_files});
+        window.form_errors = [];
+
+        //check for validation
+        is_valid = GAS.validate($('#'+myform.attr('id')));
+
+        if(is_valid){
+            waitingDialog.show('Please wait while data is being saved !!!', {
+                dialogSize: 'm',
+                progressType: 'info'
+            });
+            //$.post(action,data)
+            $.ajax({url:action,type:'POST',data:data,processData:false,contentType:false})
+                .done(function (response) {
+                    $.fancybox.close();
+
+                    setTimeout(() => {
+                        new Noty({
+                            text: response.message,
+                            theme:'sunset',
+                            type:'success',
+                            timeout:1000
+                        }).show();
+                        $("#noty_layout__topRight").css("width","300px");
+                    
+                    }, 500);
+                //reload the data table content
+                loadDatatableList(response.slug)
+
+                })
+                .fail(function (response) {
+                    window.form_errors.push("<h5>"+response.responseJSON.message+"</h5>");
+                    var errors = response.responseJSON.errors;
+                    for (let [key, value] of Object.entries(errors)) {
+                        var input = $(window.myform).find("input[name="+key+"]");
+                        if(input.hasClass("is-invalid") == false){
+                            input.addClass("is-invalid");
+                            input.closest('div.form-group').append('<div class="invalid-feedback">'+value.join('<br/>')+'</div>');
+                        }
+                        window.form_errors.push("<li>"+value+"</li>");
+                    }
+
+                    window.myform.find("input,select,textarea,radio,checkbox").on('change', function(ev){
+                        $(ev.target).removeClass("is-invalid");
+                        $(ev.target).closest("div.form-group").find(".invalid-feedback").remove();
+                    });
+                    setTimeout(() => {
+                        new Noty({
+                            text: window.form_errors.join("<br/>"),
+                            type:'error',
+                            theme:'sunset',
+                        }).show();
+                        $("#noty_layout__topRight").css("width","300px");
+                    }, 200);
+                })
+            .always(function (response) {
+                setTimeout(function () {
+                    waitingDialog.hide();
+                    }, 500);
+            });
+        }
+    }
+
+</script>
+{% endblock %}
+
+

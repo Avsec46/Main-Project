@@ -1,0 +1,5 @@
+{% load custom_tags %}
+{% create_list 'add' slug as mylist %}
+	{% if request.user|check_permission:mylist %}
+		<a data-fancybox data-type="ajax" href="{% url 'master:crud_create' slug %}" class="fancybox btn btn-sm btn-success ml-3 p-0 pl-1 pr-1"><i class="fa fa-plus"></i>  New</a>
+	{% endif %}

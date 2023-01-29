@@ -1,0 +1,45 @@
+ <table id="crudTable" class="table table-sm table-striped table-hover bg-white nowrap" width="100%" style="background-color:lightgrey;" cellspacing="0">
+    <thead>
+    <tr>
+        <th class="text-center width-50" data-orderable="false">S.N</th>
+        {%if columns %}
+        {% for column in columns %}
+        <th>
+            {{ labels|get_item:column }}
+        </th>
+        {% endfor %}
+        {%endif%}
+        <th class="text-center left-border-lightgray width-100" data-orderable="false" >Action</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% if hasFilterClass %} 
+            {% for item in lists.qs %}
+                <tr>
+                    <td class="text-center right-border-lightgray">{{ forloop.counter }}</td>
+                    {% for column in columns %}
+                        <td>{{ item|get_item_value:column}}</td>
+                    {% endfor %}
+                    <td class="text-center left-border-lightgray">
+                    {% include '../../buttons/edit_button.html' with slug=slug id=item.id %}
+                    {% include '../../buttons/delete_button.html' with slug=slug id=item.id %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {%else%}
+
+            {% for item in lists %}
+                <tr>
+                    <td class="text-center right-border-lightgray">{{ forloop.counter }}</td>
+                    {% for column in columns %}
+                        <td>{{ item|get_item_value:column}}</td>
+                    {% endfor %}
+                    <td class="text-center left-border-lightgray">
+                    {% include '../../buttons/edit_button.html' with slug=slug id=item.id %}
+                    {% include '../../buttons/delete_button.html' with slug=slug id=item.id %}
+                    </td>
+                </tr>
+            {% endfor %}    
+        {%endif%}
+    </tbody>
+</table>

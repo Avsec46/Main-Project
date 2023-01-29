@@ -1,0 +1,44 @@
+[
+{
+  "code": "1",
+  "name_en": "Province 1",
+  "name_lc": "प्रदेश १",
+  "display_order": 0
+},
+{
+  "code": "2",
+  "name_en": "Province 2",
+  "name_lc": "प्रदेश २",
+  "display_order": 0
+},
+{
+  "code": "3",
+  "name_en": "Bagmati",
+  "name_lc": "बागमती",
+  "display_order": 0
+},
+{
+  "code": "4",
+  "name_en": "Gandaki",
+  "name_lc": "गण्डकी",
+  "display_order": 0
+},
+{
+  "code": "5",
+  "name_en": "Lumbini",
+  "name_lc": "लुम्बिनी",
+  "display_order": 0
+},
+{
+  "code": "6",
+  "name_en": "Karnali",
+  "name_lc": "कर्णाली",
+  "display_order": 0
+},
+{
+  "code": "7",
+  "name_en": "SudurPashchim",
+  "name_lc": "सुदूरपश्चिम",
+  "display_order": 0
+}
+]

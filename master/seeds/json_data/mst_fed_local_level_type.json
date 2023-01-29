@@ -1,0 +1,26 @@
+ [
+    {
+      "code": "1",
+      "name_en": "Rural Municipal",
+      "name_lc": "गाउँपालिका",
+      "display_order": 0
+    },
+    {
+      "code": "2",
+      "name_en": "Municipal",
+      "name_lc": "नगरपालिका",
+      "display_order": 0
+    },
+    {
+      "code": "3",
+      "name_en": "Sub-Metropolitan City",
+      "name_lc": "उपमहानगरपालिका",
+      "display_order": 0
+    },
+    {
+      "code": "4",
+      "name_en": "Metropolitan city",
+      "name_lc": "महानगरपालिका",
+      "display_order": 0
+    }
+  ]

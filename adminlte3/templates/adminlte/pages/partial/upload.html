@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-md-12">
+        <form class="uploadform" method='POST' action="{% url 'master:upload_file' slug %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>              
+                <b>Select file :</b> <input type='file' name='file'  class='form-control' required><br>
+            </div>
+            <button type="submit" class="btn btn-success" style="margin-left:15px;">Upload</button>
+            <button type="button" class="btn btn-danger" onclick="$.fancybox.close()">Cancel</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+{% load crispy_forms_tags %}
+{% load static %}
+
+<form enctype="multipart/form-data" action="{% url 'master:crud_update' slug entry.id %}" method="POST" id="{{ slug|add:"_form" }}" autocomplete="off">
+    {% csrf_token %}
+    <div class="row">
+        <input type="hidden" value="{{entry.id}}" id="entry_id">
+        {% for field in form %}
+            <div class="pt-1">
+                {{ field|as_crispy_field }}
+            </div>
+        {% endfor %}
+    </div>
+    {% include 'adminlte/buttons/save_and_cancel_button.html' %}
+</form>
+
+<script src="{% static 'main/js/date_converter.js' %}"></script>
+<script src="{% static 'main/js/create_update.js' %}"></script>
+<script src="{% static 'main/js/dependent_dropdown.js' %}"></script>
+
+{% block js %}
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $("a[class*=fancybox]").fancybox({
+        clickSlide: false, // disable close on outside click
+        touch: false, // disable close on swipe
+        });
+    });
+    </script>
+{% endblock %}

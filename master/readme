@@ -1,0 +1,5 @@
+<!-- run the following command to seed the master data -->
+# bash ./master/seed_master.sh
+
+<!-- to dump data from app db -->
+ # py -Xutf8 manage.py dumpdata {app_name}  --indent 4 > .{file_path}.json

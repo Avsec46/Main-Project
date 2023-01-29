@@ -1,0 +1,90 @@
+{% extends "adminlte/base.html" %}
+{% load i18n static %}
+
+{% block body_class %}login-page{% endblock %}
+
+{% block body %}
+    <div class="login-box">
+        {% block logo %}
+          <div class="login-logo pr-5">
+            <img src="" alt="Logo" style="height:50px">
+            <br>
+            {% block logo_text %}<span class="font-weight-normal text-dark"> Rental Management</span>{% endblock %}
+          </div>
+        {% endblock %}
+        <!-- /.login-logo -->
+      <div class="card">
+            <div class="card-body login-card-body">
+
+                <p class="login-box-msg text-dark font-weight-bold">Sign in to start your session</p>
+                {% block login_form %}
+                    <form action="{% url 'auth:login' %}" method="post">
+                        {% csrf_token %}
+                        
+                        {% block login_errors %}
+
+                        {% if msg %}
+                              <p class="errorlist">Error : {{ msg }}</p>
+                        {% endif %}
+                      {% endblock login_errors %}
+
+                        <div class="input-group mb-3 mt-3">
+                          {{ form.username }}
+                          <div class="input-group-append">
+                            <div class="input-group-text">
+                              <span class="fas fa-user"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="input-group mb-3">
+                          {{ form.password }}
+                          <div class="input-group-append">
+                            <div class="input-group-text">
+                              <span class="fas fa-lock"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row ml-2">
+                            <div class="check-primary text-muted">
+                                <input type="checkbox" id="remember">
+                                <label for="remember" class="font-weight-normal">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary btn-block">{% trans 'Sign In' %}</button>
+                        </div>
+                    </form>
+                {% endblock login_form %}
+                
+                {% comment %} <div class="social-auth-links text-center mb-3">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-primary">
+                      <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                      <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                    </a>
+                </div>  {% endcomment %}
+                
+                <!-- /.social-auth-links -->
+                <div class=" text-center mt-3">
+
+                    {% comment %} <p class="mb-1">
+                        <a href="forgot-password.html">I forgot my password</a>
+                    </p> {% endcomment %}
+                    <p class="mb-0 font-weight-bold">
+                      New user ?? <a href="{% url 'auth:register' %}" class="text-center ml-2"> Register Here !</a>
+                    </p>
+                </div>
+
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.login-box -->
+{% endblock %}
+
+

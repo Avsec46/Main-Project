@@ -1,0 +1,75 @@
+{% load static %}
+
+{% block scripts %}
+<script src="{% static 'admin-lte/plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/select2/js/select2.full.min.js' %}"></script>
+
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+    
+    $.widget.bridge('uibutton', $.ui.button);
+    var url = window.location;
+    // for sidebar menu entirely but not cover treeview
+    $('ul.nav-sidebar a').filter(function() {
+        //check if url matches
+        if(this.href == url){
+            return true;
+        };
+        //check is some part of url matches the current url
+        if(url.href.includes(this.href)){
+            return true;
+        }
+    }).addClass('active');
+
+    // for treeview
+    $('ul.nav-treeview a').filter(function() {
+
+        //check if url matches
+        if(this.href == url){
+            return true;
+        };
+
+        //check is some part of url matches the current url
+        if(url.href.includes(this.href)){
+            return true;
+        }
+    }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+
+
+
+    // for navbar toggle, sidebar collapse and show using sidebar state in localstorage
+    if (Boolean(sessionStorage.getItem("sidebar-toggle-collapsed"))) {
+        $("body").addClass('sidebar-collapse')
+    }
+
+    $('.toggle-navbar').click(function() {
+        event.preventDefault();
+        
+        if (Boolean(sessionStorage.getItem("sidebar-toggle-collapsed"))) {
+        sessionStorage.setItem("sidebar-toggle-collapsed", "");
+        } else {
+        sessionStorage.setItem("sidebar-toggle-collapsed", "1");
+        }
+    
+  });
+
+
+</script>
+<script src="{% static 'admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
+
+
+{% block datatable_js %}{% endblock %}
+
+<script src="{% static 'admin-lte/dist/js/adminlte.min.js' %}"></script>
+<script src="{% static 'main/js/noty.js' %}"></script>
+<script src="{% static 'main/js/sweetalert.min.js' %}"></script>
+<script src="{% static 'main/js/nepali.datepicker.v3.5.min.js' %}"></script>
+<script src="{% static 'main/js/bootstrap-waitingfor.min.js' %}"></script>
+<script src="{% static 'main/js/jquery-validation.min.js' %}"></script>
+<script src="{% static 'main/js/custom.js' %}"></script>
+{% endblock %}

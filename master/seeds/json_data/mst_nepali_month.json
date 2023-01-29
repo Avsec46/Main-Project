@@ -1,0 +1,74 @@
+ [
+    {
+      "code": "01",
+      "name_en": "Baishakh",
+      "name_lc": "बैशाख",
+      "display_order": 0
+    },
+    {
+      "code": "02",
+      "name_en": "Jestha",
+      "name_lc": "जेठ",
+      "display_order": 0
+    },
+    {
+      "code": "03",
+      "name_en": "Ashad",
+      "name_lc": "आषाध",
+      "display_order": 0
+    },
+    {
+      "code": "04",
+      "name_en": "Shrawan",
+      "name_lc": "श्रावन",
+      "display_order": 0
+    },
+    {
+      "code": "05",
+      "name_en": "Bhadra",
+      "name_lc": "भाद्र",
+      "display_order": 0
+    },
+    {
+      "code": "06",
+      "name_en": "Ashwin",
+      "name_lc": "आश्विन",
+      "display_order": 0
+    },
+    {
+      "code": "07",
+      "name_en": "Kartik",
+      "name_lc": "कार्तिक",
+      "display_order": 0
+    },
+    {
+      "code": "08",
+      "name_en": "Mangshir",
+      "name_lc": "मंग्सिर",
+      "display_order": 0
+    },
+    {
+      "code": "09",
+      "name_en": "Poush",
+      "name_lc": "पुष",
+      "display_order": 0
+    },
+    {
+      "code": "10",
+      "name_en": "Magh",
+      "name_lc": "माघ",
+      "display_order": 0
+    },
+    {
+      "code": "11",
+      "name_en": "Falgun",
+      "name_lc": "फागुन",
+      "display_order": 0
+    },
+    {
+      "code": "12",
+      "name_en": "Chaitra",
+      "name_lc": "चैत",
+      "display_order": 0
+    }
+  ]

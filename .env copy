@@ -1,0 +1,7 @@
+# .env
+
+DJANGO_SECRET_KEY= django-insecure-9^@e=_6fiuamlfnr^4rkk@o18z0!m_nm_)bpnq8r&2ri5x5r6l
+DATABASE_PORT = 5432
+DATABASE_NAME = hello_cm
+DATABASE_USER = postgres
+DATABASE_PASSWORD =admin

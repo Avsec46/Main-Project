@@ -1,0 +1,110 @@
+{% extends 'adminlte/base.html' %}
+{% load static %}
+
+{% block style_sheets %}
+  <link rel="stylesheet" type="text/css" href="{% static 'admin-lte/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'admin-lte/plugins/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'admin-lte/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'admin-lte/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block page_name %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <h3>
+          <span class="text-capitalize"> {{ header }}</span>
+            {% include '../buttons/create_button.html' %}
+        </h3>
+      </div>
+      <div class="col text-right mr-5">
+        {% if upload_button %}
+          {% include '../buttons/upload_button.html' %}
+        {%  endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block buttons %}
+{% endblock%}
+
+{% block content %}
+    <div class="card">
+      {% if hasFilter %}
+        <div class="form-row card-body p-0 pl-4">
+          <div class="col-md-10">
+            {% include './partial/filter.html' with filterFields=filterFields slug=slug %}
+          </div>
+          <div class="col-md-2 mt-4">
+	          <a href="javascript:;" onClick="GAS.clearFilter(this)" slug={{ slug }} class="btn text-secondary"><i class="fa fa-filter"></i> Clear Filters</a>
+          </div>
+              <hr class="hr-line">
+        </div>
+      {% endif %}
+        <div class="card-body" style="overflow-x:auto;">
+              <div id ="section-datatable"></div>
+              {% comment %} {% include './partial/datatable.html' with columns=columns labels=labels lists=lists slug=slug %} {% endcomment %}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-fixedheader-bs4/js/fixedHeader.bootstrap4.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables-fixedcolumns/js/fixedColumns.bootstrap4.min.js' %}"></script>
+
+  <script>
+    $(document).ready(function() {
+      let slug = "{{ slug }}";
+      if(slug !== ''){
+        loadDatatableList(slug);
+      }
+    });
+
+
+
+  function loadDatatableList(slug,params){
+    if(typeof(params) != 'undefined'){
+        let url = "{% url 'master:filter_crud_list' slug=slug %}";
+        $('#section-datatable').html('<div class="text-center"><img src="{%static "admin-lte/images/loading.gif" %}"/></div>');
+
+        $.get(url,params,function(response) {
+            $('#section-datatable').html(response);
+            initDatatable();
+        });
+    }else{
+        let url = "{% url 'master:filter_crud_list' slug=slug %}";
+        $('#section-datatable').html('<div class="text-center"><img src="{%static "admin-lte/images/loading.gif" %}"/></div>');
+
+        $.get(url,function(response) {
+            $('#section-datatable').html(response);
+            initDatatable();
+        });
+    }
+  }
+
+  function initDatatable(){
+       $('#crudTable').DataTable({
+       
+            fixedHeader: true,
+            scrollX: true,
+            scrollCollapse: true,
+            fixedColumns:   {
+                leftColumns: 0,
+                rightColumns: 1
+            }
+          });
+  }
+
+  let field = $('.filter-field').parent().parent().css({"margin-right":"5px"});
+  </script>
+{% endblock %}
+
+    
